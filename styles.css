@@ -1,0 +1,151 @@
+/* =========================
+   Global
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  color: #e4e4e4;
+}
+
+/* =========================
+   Game Container
+========================= */
+
+#game {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* =========================
+   HUD
+========================= */
+
+#hud {
+  display: flex;
+  justify-content: space-between;
+  background: #111;
+  border: 1px solid #333;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+#stats,
+#health,
+#xp {
+  font-weight: bold;
+}
+
+/* =========================
+   Panels
+========================= */
+
+#dialogue,
+#choices,
+#inventory,
+#skills,
+#map {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 15px;
+}
+
+#choices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* Dialogue box */
+
+#dialogue {
+  font-size: 18px;
+  min-height: 60px;
+}
+
+/* =========================
+   Buttons
+========================= */
+
+button {
+  background: linear-gradient(#2d6cdf, #1c4bb4);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 4px;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: linear-gradient(#3f7cff, #2a5ed1);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Disabled buttons */
+
+button:disabled {
+  background: #444;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Combat
+========================= */
+
+#combat {
+  background: #200;
+  border: 1px solid #500;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+#enemy {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   Inventory + Skills Layout
+========================= */
+
+#inventory button,
+#skills button {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+/* =========================
+   Map Layout
+========================= */
+
+#map {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* =========================
+   Hidden
+========================= */
+
+.hidden {
+  display: none;
+}
