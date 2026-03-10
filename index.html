@@ -1,17 +1,66 @@
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Text RPG Starter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div id="game-container">
-    <div id="scene-text"></div>
-    <div id="choices"></div>
-    <div id="combat-log"></div>
-    <div id="player-stats"></div>
+  <div id="game">
+
+    <!-- LEFT PANEL -->
+    <div id="sidebar">
+      <div class="panel">
+        <h2>Player</h2>
+        <div id="playerStats"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Inventory</h2>
+        <div id="inventory"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Skills</h2>
+        <div id="skills"></div>
+      </div>
+    </div>
+
+    <!-- MAIN AREA -->
+    <div id="main">
+      <!-- Story / Chat -->
+      <div class="panel" id="chatBox">
+        <h2>Story</h2>
+        <div id="text"></div>
+      </div>
+
+      <!-- Choice description -->
+      <div class="panel" id="choiceText">
+        <h2>Options</h2>
+        <div id="choiceDescription"></div>
+      </div>
+
+      <!-- Choice buttons -->
+      <div class="panel" id="choices">
+        <div id="choiceButtons"></div>
+      </div>
+
+      <!-- Combat log -->
+      <div class="panel" id="combatLogPanel">
+        <div class="panel-header">
+          <h2>Combat Log</h2>
+          <button id="clearCombatLogText">Clear</button>
+        </div>
+        <div id="combat-log"></div>
+      </div>
+    </div>
+
   </div>
   <script type="module" src="main.js"></script>
+
+
 </body>
+
 </html>

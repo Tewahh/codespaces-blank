@@ -1,36 +1,65 @@
-import { updateUI } from '../ui.js';
-import { state } from '../state.js';
-import { startCombat } from '../combat/combat.js';
-
-export const scenes = {
-  intro: {
-    text: 'You wake up in a dark forest. You see a path leading north.',
-    choices: [
-      { text: 'Follow the path', action: () => startScene('forestPath') },
-      { text: 'Stay and rest', action: () => startScene('rest') }
-    ]
-  },
-  forestPath: {
-    text: 'A wild wolf appears!',
-    choices: [
-      { text: 'Fight the wolf', action: () => startCombat(['wolf']) },
-      { text: 'Run back', action: () => startScene('intro') }
-    ]
-  },
-  rest: {
-    text: 'You take a rest and recover 10 HP.',
-    choices: [
-      { text: 'Continue', action: () => { 
-          state.player.hp = Math.min(state.player.hp + 10, state.player.maxHp);
-          startScene('intro'); 
-        } 
-      }
-    ]
-  }
-};
+import { scenes } from "../../data/scenes.js";
+import { state } from "../state.js";
+import { updateUI } from "../ui.js";
+import { startCombat } from "../combat/combat.js";
 
 export function startScene(sceneId) {
-  state.currentScene = sceneId;
   const scene = scenes[sceneId];
-  updateUI(scene.text, scene.choices);
+
+  if (!scene) {
+    console.error("Scene not found:", sceneId);
+    return;
+  }
+
+  state.currentScene = sceneId;
+
+  const processedChoices = scene.choices.map(choice => ({
+    text: choice.text,
+    action: () => handleChoice(choice)
+  }));
+
+  updateUI(scene.text, processedChoices);
+}
+
+function handleChoice(choice) {
+
+  // Give item
+  if (choice.giveItem) {
+
+    if (Array.isArray(choice.giveItem)) {
+      choice.giveItem.forEach(item => {
+        state.player.inventory.push(item);
+      });
+    } else {
+      state.player.inventory.push(choice.giveItem);
+    }
+
+    console.log("Inventory:", state.player.inventory);
+  }
+
+  // Heal
+  if (choice.heal) {
+    state.player.hp = Math.min(
+      state.player.hp + choice.heal,
+      state.player.maxHp
+    );
+  }
+
+  // Combat
+  if (choice.combat) {
+    const scene = scenes[state.currentScene];
+    startCombat(scene.enemy);
+    return;
+  }
+
+  // Custom action
+  if (choice.action) {
+    choice.action();
+  }
+
+  // Change scene LAST
+  if (choice.scene) {
+    startScene(choice.scene);
+  }
+
 }

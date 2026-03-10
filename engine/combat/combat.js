@@ -1,6 +1,7 @@
 import { state } from '../state.js';
 import { enemies } from '../../data/enemies.js';
 import { logCombat } from '../ui.js';
+import { addXP } from '../systems/levelSystem.js';
 
 export function startCombat(enemyIds = []) {
   state.enemiesInBattle = enemyIds.map(id => {
@@ -22,6 +23,7 @@ function nextTurn() {
 
   if (enemy.hp <= 0) {
     logCombat(`${enemy.name} defeated!`);
+    addXP(5)
     state.enemiesInBattle.shift();
   }
 
