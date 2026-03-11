@@ -1,0 +1,91 @@
+const characters = [
+    {
+        portrait:"portraits/knight.png",
+        name: "Elandra Hollow",
+        race: "Human",
+        class: "Herbalist / Scout",
+        alignment: "Neutral Good",
+        age: 28,
+        lore: "Elandra grew up in Verdant Hollow, learning tracking, herb lore, and survival skills.",
+        stats: { intelligence: 17, will: 15, strength: 9, health: 12, agility: 16, instinct: 17, endurance: 14 },
+        abilities: [
+            { name: "Herbal Remedy", description: "Can heal minor injuries using plants." },
+            { name: "Silent Tracker", description: "Moves stealthily and notices hidden dangers." },
+            { name: "Animal Whisper", description: "Can calm or observe animals for guidance." }
+        ],
+        quests: [
+            "Help map dangerous forest paths.",
+            "Gather rare herbs to cure a mysterious illness.",
+            "Protect a village from poachers."
+        ]
+    },
+    {
+        portrait:"portraits/knight.png",
+        name: "Rorik Ash",
+        race: "Human",
+        class: "Rogue / Scout",
+        alignment: "Chaotic Neutral",
+        age: 35,
+        lore: "Rorik grew up in port cities, mastering street smarts, stealth, and persuasion.",
+        stats: { intelligence: 16, will: 14, strength: 11, health: 13, agility: 18, instinct: 16, endurance: 14 },
+        abilities: [
+            { name: "Quick Escape", description: "Can flee or hide effectively." },
+            { name: "Pickpocket / Lockpick", description: "Gain resources stealthily." },
+            { name: "Silver Tongue", description: "Can persuade or bluff NPCs." }
+        ],
+        quests: [
+            "Steal or recover a valuable item without getting caught.",
+            "Help a friend escape a tight situation.",
+            "Evade a rival gang."
+        ]
+    },
+    {
+        portrait:"portraits/knight.png",
+        name: "Kael Morgan",
+        race: "Human",
+        class: "Captain / Law Enforcer",
+        alignment: "Lawful Neutral",
+        age: 42,
+        lore: "Kael is a city captain dedicated to law and order.",
+        stats: { intelligence: 16, will: 18, strength: 14, health: 15, agility: 10, instinct: 16, endurance: 17 },
+        abilities: [
+            { name: "Tactical Command", description: "Boosts allies’ effectiveness." },
+            { name: "Interrogation", description: "Can extract info from NPCs." },
+            { name: "Patrol Sense", description: "Detects hidden threats or criminal activity." }
+        ],
+        quests: ["Investigate corruption in the city.", "Escort a VIP safely.", "Stop a criminal plot."]
+    },
+    {
+        portrait:"portraits/knight.png",
+        name: "Maelis Greene",
+        race: "Human",
+        class: "Scout / Messenger",
+        alignment: "Chaotic Neutral",
+        age: 12,
+        lore: "Maelis grew up on the streets, extremely clever and agile.",
+        stats: { intelligence: 14, will: 12, strength: 6, health: 9, agility: 19, instinct: 18, endurance: 10 },
+        abilities: [
+            { name: "Scout", description: "Spots hidden paths or traps." },
+            { name: "Quick Hands", description: "Can retrieve items unnoticed." },
+            { name: "Rumor Network", description: "Knows secret information in the city." }
+        ],
+        quests: ["Find a missing item in the city.", "Deliver messages through dangerous streets.", "Outsmart rival gangs."]
+    },
+    {
+        portrait:"portraits/knight.png",
+        name: "Tharok Iron",
+        race: "Human",
+        class: "Warrior / Tactician",
+        alignment: "Lawful Neutral",
+        age: 50,
+        lore: "Tharok is a retired soldier turned mercenary.",
+        stats: { intelligence: 13, will: 16, strength: 17, health: 16, agility: 10, instinct: 15, endurance: 18 },
+        abilities: [
+            { name: "Warhammer Strike", description: "Powerful melee attack." },
+            { name: "Defensive Stance", description: "Reduces damage taken temporarily." },
+            { name: "Battle Tactics", description: "Boosts allies’ efficiency in combat." }
+        ],
+        quests: ["Train a young adventurer.", "Defend a town from raiders.", "Recover lost equipment from past campaigns."]
+    },
+];
+

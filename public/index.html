@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mini RPG</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Mini RPG</h1>
+
+    <div id="loginSection">
+
+        <h2>Login</h2>
+
+        <form id="loginForm">
+            <input id="loginUsername" placeholder="Username">
+            <input id="loginPassword" type="password" placeholder="Password">
+            <button>Login</button>
+        </form>
+
+        <button id="showCreateAccount">Create Account</button>
+        <p id="loginMsg"></p>
+
+        <div id="createAccountSection" style="display:none">
+
+            <h2>Create Account</h2>
+
+            <form id="createAccountForm">
+
+                <input id="newUsername" placeholder="Username">
+                <input id="newPassword" type="password" placeholder="Password">
+
+                <select id="newCharacter">
+                    <option value="">Select Character</option>
+                </select>
+
+                <button>Create</button>
+
+            </form>
+
+            <p id="createMsg"></p>
+
+            <button id="backToLogin">Back</button>
+
+        </div>
+
+    </div>
+
+
+    <div id="gameSection" style="display:none">
+
+        <div id="stats"></div>
+        <div id="health"></div>
+        <div id="xp"></div>
+
+        <hr>
+
+        <div id="dialogue"></div>
+        <div id="choices"></div>
+        <div id="choicesDiv"></div>
+
+        <hr>
+
+        <div id="combat" class="hidden">
+
+            <h3 id="enemy"></h3>
+
+            <button id="attackBtn">Attack</button>
+
+            <div id="combatLog"></div>
+
+        </div>
+
+        <hr>
+
+        <h3>Inventory</h3>
+        <div id="inventory"></div>
+
+        <ul id="inventoryList"></ul>
+
+    </div>
+
+    <div id="errorMsg"
+        style="color:red; position:fixed; bottom:10px; left:10px; background:#ffeeee; padding:5px; border:1px solid red; max-width:300px;">
+    </div>
+    <script src="characters.js"></script>
+    <script type="module" src="main.js"></script>
+
+</body>
+
+</html>
