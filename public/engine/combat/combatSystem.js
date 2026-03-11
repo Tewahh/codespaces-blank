@@ -10,11 +10,16 @@ export function startCombat(enemyNames) {
     state.combat.active = true
     state.combat.enemies = enemyNames.map(name => ({ ...enemies[name] }))
 
-    const combatDiv = document.getElementById("combat")
-    combatDiv.classList.remove("hidden")
-    attackBtn.style.display = "inline-block"  // Show button in combat
+    const combatDiv = document.getElementById("combat");
+    console.log("asd");
+    attackBtn.style.display = "inline-block";
+    attackBtn.style.visibility="visible";
+    console.log(attackBtn.style.visibility)
+    attackBtn.style.opacity = "1";
+    console.log(attackBtn.style.opacity)
+    combatDiv.classList.remove("hidden");
 
-    updateCombatUI()
+    updateCombatUI();
 }
 
 
@@ -56,22 +61,23 @@ export function playerAttack() {
 
 }
 
-function endCombat() {
+export function endCombat() {
     state.combat.active = false
-
-    const combatDiv = document.getElementById("combat")
-    combatDiv.classList.add("hidden")
-    attackBtn.style.display = "none"  // Hide button when combat ends
+    document.getElementById("combat").classList.add("hidden")
+    attackBtn.style.display = "none"
 
     addXP(5)
     const loot = generateLoot()
     addItem(loot)
     console.log("Loot:", loot.name)
 
+    // Heal slightly after combat
+    healBetweenScenes()
+
     updateUI()
 }
 
-function updateCombatUI() {
+export function updateCombatUI() {
     const enemyDiv = document.getElementById("enemy")
     if (state.combat.enemies.length === 0) {
         enemyDiv.textContent = "No enemies left!"
@@ -82,4 +88,3 @@ function updateCombatUI() {
         .map(e => `${e.name} HP: ${e.hp}`)
         .join("<br>")
 }
-

@@ -1,204 +1,287 @@
 /* ======================
 GLOBAL
 ===================== */
-body {
-  font-family: "Courier New", monospace;
-  background-color: #0f0f1a; /* dark dungeon background */
-  color: #e0e0e0;
-  padding: 20px;
-  display: flex;
-  gap: 20px;
+body{
+  font-family:"Courier New", monospace;
+  background:#0b0b14;
+  color:#e6e6e6;
+
+  padding:20px;
+
+  display:grid;
+  grid-template-columns:250px 1fr 350px;
+  gap:20px;
+
+  max-width:1400px;
+  margin:auto;
 }
 
-/* PANEL STYLING */
-.panel {
-  background-color: #1a1a2d;
-  border: 2px solid #444;
-  border-radius: 4px;
-  padding: 15px;
-  box-shadow: inset 0 0 8px rgba(255,255,255,0.05);
+/* ======================
+PANELS
+===================== */
+.panel{
+  background:#161625;
+  border:2px solid #3b3b55;
+  border-radius:6px;
+  padding:15px;
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,0.05),
+    0 0 10px rgba(0,0,0,0.6);
 }
 
-/* CHARACTER LIST PANEL */
-#characterNames {
-  list-style: none;
-  padding: 0;
-  width: 180px;
-  border: 2px solid #333;
+/* ======================
+CHARACTER LIST
+===================== */
+#characterNames{
+  list-style:none;
+  padding:0;
+  width:200px;
 }
 
-#characterNames li {
-  padding: 8px;
-  margin-bottom: 5px;
-  background-color: #222;
-  border: 1px solid #555;
-  cursor: pointer;
+#characterNames li{
+  padding:8px;
+  margin-bottom:6px;
+  background:#1f1f33;
+  border:1px solid #444;
+  cursor:pointer;
+  transition:0.15s;
 }
 
-#characterNames li:hover {
-  background-color: #333;
-  border-color: #777;
+#characterNames li:hover{
+  background:#2b2b45;
+  border-color:#777;
 }
 
-/* CHARACTER INFO PANEL */
-#characterInfo {
-  flex: 1;
-  background-color: #1c1c30;
-  border: 2px solid #555;
-  border-radius: 4px;
-  padding: 20px;
-  width: 400px;
+/* ======================
+CHARACTER PANEL
+===================== */
+#characterInfo{
+  flex:1;
+  width:420px;
 }
 
-/* CHARACTER NAME */
-#charName {
-  font-size: 22px;
-  font-weight: bold;
-  color: #7fff7f; /* greenish like HP bar */
-  margin-top: 0;
-  margin-bottom: 5px;
+#charName{
+  font-size:22px;
+  font-weight:bold;
+  color:#7fff7f;
+  margin-bottom:5px;
 }
 
-/* LORE TEXT */
-#charLore {
-  font-style: italic;
-  font-size: 14px;
-  opacity: 0.85;
-  margin-bottom: 15px;
+#charLore{
+  font-style:italic;
+  font-size:14px;
+  opacity:0.8;
+  margin-bottom:15px;
 }
 
-/* STATS LIST */
-#charStats {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 15px;
+/* ======================
+STATS
+===================== */
+#charStats{
+  list-style:none;
+  padding:0;
+  margin-bottom:15px;
 }
 
-#charStats li {
-  padding: 3px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+#charStats li{
+  padding:4px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-/* STAT COLORS */
-.stat-hp { color: #7fff7f; }        /* green */
-.stat-mana { color: #66c6ff; }      /* blue */
-.stat-attack { color: #ff5555; }    /* red */
-.stat-defense { color: #ffff66; }   /* yellow */
+.stat-hp{color:#7fff7f;}
+.stat-mana{color:#66c6ff;}
+.stat-attack{color:#ff6666;}
+.stat-defense{color:#ffe066;}
 
-/* ABILITIES */
-#charAbilities {
-  list-style: none;
-  padding: 0;
+/* ======================
+ABILITIES
+===================== */
+#charAbilities{
+  list-style:none;
+  padding:0;
 }
 
-#charAbilities li {
-  padding: 6px 8px;
-  margin-bottom: 5px;
-  background-color: #111;
-  border-left: 4px solid #777;
-  cursor: default;
-  position: relative;
+#charAbilities li{
+  padding:6px 8px;
+  margin-bottom:6px;
+  background:#111;
+  border-left:4px solid #777;
+  position:relative;
 }
 
-/* RARITY COLORS */
-.ability-common { border-left-color: #999; }
-.ability-rare { border-left-color: #4aa3ff; }
-.ability-epic { border-left-color: #c770ff; }
-.ability-legendary { border-left-color: #ffa94d; }
+/* Ability rarity */
+.ability-common{border-left-color:#aaa;}
+.ability-rare{border-left-color:#4aa3ff;}
+.ability-epic{border-left-color:#c770ff;}
+.ability-legendary{border-left-color:#ffa94d;}
 
-/* TOOLTIP */
-.tooltip {
-  position: absolute;
-  top: 0;
-  left: 105%;
-  background-color: #111122;
-  border: 1px solid #4444aa;
-  padding: 8px;
-  border-radius: 3px;
-  font-size: 12px;
-  opacity: 0;
-  pointer-events: none;
+/* ======================
+INVENTORY GRID
+===================== */
+
+#inventoryGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(100px,1fr));
+  gap:12px;
+  margin-top:12px;
 }
 
-#charAbilities li:hover .tooltip {
-  opacity: 1;
+/* ======================
+ITEM CARD
+===================== */
+
+.inventory-slot{
+  width:100px;
+  height:130px;
+
+  background:#151526;
+  border:2px solid #333;
+  border-radius:8px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+
+  padding:6px;
+  position:relative;
+
+  transition:0.2s;
+
+  box-shadow:
+    inset 0 0 5px rgba(255,255,255,0.05),
+    0 2px 6px rgba(0,0,0,0.7);
 }
 
-/* INVENTORY GRID */
-#inventoryGrid {
-  display: grid;
-  grid-template-columns: repeat(5, 50px);
-  gap: 4px;
-  margin-top: 10px;
+.inventory-slot:hover{
+  transform:translateY(-3px) scale(1.03);
+  border-color:#777;
+  background:#1b1b2e;
 }
 
-.inventory-slot {
-  width: 50px;
-  height: 50px;
-  background-color: #111;
-  border: 1px solid #444;
-  border-radius: 2px;
-  position: relative;
-  text-align: center;
-  line-height: 50px;
-  font-size: 12px;
-  color: #eee;
+/* ======================
+ITEM IMAGE
+===================== */
+
+.inventory-img{
+  width:48px;
+  height:48px;
+
+  margin-bottom:6px;
+
+  background:white;
+  padding:3px;
+  border-radius:6px;
+
+  border:1px solid #444;
+
+  filter:
+    brightness(1.2)
+    contrast(1.3)
+    drop-shadow(0 0 3px black);
 }
 
-.inventory-slot:hover {
-  background-color: #222;
-  border-color: #777;
+/* ======================
+ITEM NAME
+===================== */
+
+.item-name{
+  font-size:11px;
+  text-align:center;
+
+  line-height:12px;
+
+  /* allow wrapping */
+  white-space:normal;
+  word-break:break-word;
+
+  width:100%;
 }
 
-/* BUTTONS */
-button {
-  font-family: monospace;
-  font-weight: bold;
-  background-color: #333;
-  color: #eee;
-  border: 1px solid #555;
-  padding: 6px 10px;
-  border-radius: 3px;
-  cursor: pointer;
+/* ======================
+RARITY BORDERS
+===================== */
+
+.rarity-common{
+  border-color:#777;
 }
 
-button:hover {
-  background-color: #444;
-  border-color: #777;
+.rarity-rare{
+  border-color:#4aa3ff;
+  box-shadow:0 0 6px rgba(74,163,255,0.5);
 }
 
-.inventory-item {
-  position: relative;
-  display: inline-block;
-  margin: 5px;
-  text-align: center;
+.rarity-epic{
+  border-color:#c770ff;
+  box-shadow:0 0 6px rgba(199,112,255,0.6);
 }
 
-.inventory-img {
-  width: 50px;
-  height: 50px;
-  border: 1px solid #555;
-  border-radius: 4px;
-  background: #222;
+.rarity-legendary{
+  border-color:#ffa94d;
+  box-shadow:0 0 8px rgba(255,169,77,0.7);
 }
 
-.tooltip {
-  visibility: hidden;
-  background-color: #222;
-  color: #fff;
-  text-align: left;
-  padding: 5px;
-  border-radius: 5px;
-  position: absolute;
-  z-index: 10;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: 200px;
-  pointer-events: none;
+/* ======================
+TOOLTIP
+===================== */
+
+.tooltip{
+  visibility:hidden;
+  opacity:0;
+
+  position:absolute;
+  bottom:135px;
+  left:50%;
+  transform:translateX(-50%);
+
+  background:#111122;
+  border:1px solid #555;
+  border-radius:6px;
+
+  padding:10px;
+  font-size:12px;
+
+  width:max-content;
+  max-width:220px;
+
+  box-shadow:0 0 12px rgba(0,0,0,0.8);
+
+  transition:opacity 0.15s;
+  pointer-events:none;
 }
 
-.inventory-item:hover .tooltip {
-  visibility: visible;
+.inventory-slot:hover .tooltip{
+  visibility:visible;
+  opacity:1;
+}
+
+/* Tooltip rarity colors */
+.tooltip-common{color:#ddd;}
+.tooltip-rare{color:#4aa3ff;}
+.tooltip-epic{color:#c770ff;}
+.tooltip-legendary{color:#ffa94d;}
+
+/* ======================
+BUTTONS
+===================== */
+button{
+  font-family:monospace;
+  font-weight:bold;
+  background:#2a2a40;
+  color:#eee;
+  border:1px solid #555;
+  padding:6px 12px;
+  border-radius:4px;
+  cursor:pointer;
+  transition:0.15s;
+}
+
+button:hover{
+  background:#3a3a55;
+  border-color:#888;
+}
+
+#attackBtn {
+  visibility:hidden;
+  opacity:0;
 }

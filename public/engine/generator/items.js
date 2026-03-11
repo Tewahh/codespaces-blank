@@ -1,0 +1,143 @@
+export const rarities = [
+    { name: "Common", multi: 1 },
+    { name: "Rare", multi: 1.5 },
+    { name: "Epic", multi: 2 },
+    { name: "Legendary", multi: 3 }
+]
+export const items = {
+    weapons: [
+        {
+            name: "Sword",
+            rarity: "Common",
+            material: "Iron",
+            image: "assets/items/axe.png",
+            attack: 5,
+            defense: 0,
+            description: "A basic iron sword."
+        },
+        {
+            name: "Axe",
+            rarity: "Rare",
+            material: "Steel",
+            image: "assets/items/chainmail.png",
+            attack: 8,
+            defense: 0,
+            description: "A heavy steel axe."
+        },
+        {
+            name: "Dagger",
+            rarity: "Epic",
+            material: "Obsidian",
+            image: "assets/items/dagger.png",
+            attack: 12,
+            defense: 0,
+            description: "A sharp obsidian dagger."
+        },
+        {
+            name: "Mace",
+            rarity: "Epic",
+            material: "Obsidian",
+            image: "assets/items/knife.png",
+            attack: 12,
+            defense: 0,
+            description: "A sharp obsidian dagger."
+        },
+        {
+            name: "Scythe",
+            rarity: "Epic",
+            material: "Obsidian",
+            image: "assets/items/leather_armor.png",
+            attack: 12,
+            defense: 0,
+            description: "A sharp obsidian dagger."
+        },
+        {
+            name: "Shuriken",
+            rarity: "Epic",
+            material: "Obsidian",
+            image: "assets/items/mace.png",
+            attack: 12,
+            defense: 0,
+            description: "A sharp obsidian dagger."
+        },
+        {
+            name: "Bow",
+            rarity: "Epic",
+            material: "Obsidian",
+            image: "assets/items/plate_armor.png",
+            attack: 12,
+            defense: 0,
+            description: "A sharp obsidian dagger."
+        },
+        {
+            name: "Crossbow",
+            rarity: "Epic",
+            material: "Obsidian",
+            image: "assets/items/plate_armor.png",
+            attack: 12,
+            defense: 0,
+            description: "A sharp obsidian dagger."
+        },
+    ],
+
+    armors: [
+        {
+            name: "Leather Armor",
+            rarity: "Common",
+            material: "Leather",
+            image: "assets/items/plate_armor.png",
+            attack: 0,
+            defense: 3,
+            description: "Basic leather armor."
+        },
+        {
+            name: "Chainmail",
+            rarity: "Rare",
+            material: "Steel",
+            image: "assets/items/plate_armor.png",
+            attack: 0,
+            defense: 6,
+            description: "Protective steel chainmail."
+        },
+        {
+            name: "Plate Armor",
+            rarity: "Epic",
+            material: "Steel",
+            image: "assets/items/plate_armor.png",
+            attack: 0,
+            defense: 10,
+            description: "Heavy steel plate armor."
+        }
+    ],
+
+    consumables: [
+        {
+            name: "Health Potion",
+            rarity: "Common",
+            material: "Glass",
+            image: "assets/items/plate_armor.png",
+            attack: 0,
+            defense: 0,
+            heal: 20,
+            description: "Restores some health."
+        },
+        {
+            name: "Mana Potion",
+            rarity: "Rare",
+            material: "Glass",
+            image: "assets/items/plate_armor.png",
+            attack: 0,
+            defense: 0,
+            mana: 20,
+            description: "Restores some mana."
+        }
+    ]
+}
+// Cloth / Fiber: Rags, wool, or cotton.Offers minimal protection, often used for robes or base layers.
+// Leather / Hide: Leather, boiled leather(cuir bouilli), hide, or bone.Common for light armor, offering flexibility and low - to - moderate protection.
+// Copper / Bronze: Often the first metal tier, offering better protection than leather but typically weak.
+// Iron: The standard, reliable metal tier, heavier than leather but providing better protection against slashes.
+// Steel / Chainmail: Interwoven rings or solid plates, offering a significant jump in protection.
+// Hardened / Advanced Steel: Tempered or special steels(e.g., Damascene) offering improved durability.
+// Mythical / Fantasy Metals: Specialized materials like Mithril(light yet strong), Adamantite(extremely hard), or Orichalcum.
+// End - Game / Exotic: Diamond, Crystal, Dragon Scale, or Obsidian, often providing unique bonuses, high damage reduction, or magical resistance.

@@ -1,8 +1,35 @@
 import { state } from "./engine/state.js"
 import { loadScene } from "./engine/sceneManager.js"
-
+import { generateLoot } from "./engine/generator/lootGenerator.js"
+import { updateUI } from "./engine/ui.js"
 let currentUser = null
+function enableAdminPanel() {
+    const panel = document.getElementById("adminPanel")
+    if (!panel) return
+    panel.style.display = "block"
 
+    // Buttons
+    document.getElementById("spawnLootBtn").addEventListener("click", () => {
+        const loot = generateLoot()
+        state.player.inventory.push(loot)
+        console.log("Spawned loot:", loot)
+        updateUI()
+    })
+
+    document.getElementById("fullHealBtn").addEventListener("click", () => {
+        state.player.health = state.player.maxHealth
+        console.log("Player healed to full")
+        updateUI()
+    })
+
+    document.getElementById("maxStatsBtn").addEventListener("click", () => {
+        state.player.level = 99
+        state.player.attack = 999
+        state.player.defense = 999
+        console.log("Player stats maxed")
+        updateUI()
+    })
+}
 /* ======================
 GLOBAL ERROR HANDLING
 ====================== */
@@ -115,6 +142,10 @@ loginForm?.addEventListener("submit", async (e) => {
     }
 
     currentUser = username
+
+    if (currentUser === "dev") {
+        enableAdminPanel()
+    }
     safeAssign(state.player, result.player)
 
     loginSection.style.display = "none"
