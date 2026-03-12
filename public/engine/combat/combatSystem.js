@@ -5,7 +5,7 @@ import { addXP } from "../systems/levelSystem.js"
 import { addItem } from "../systems/inventorySystem.js"
 import { generateLoot } from "../generator/lootGenerator.js"
 import { buildTurnQueue } from "../systems/turnSystem.js"
-
+import { healBetweenScenes } from "../ui.js"
 export function startCombat(enemyNames) {
     state.combat.active = true
     state.combat.enemies = enemyNames.map(name => ({ ...enemies[name] }))

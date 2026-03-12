@@ -7,6 +7,8 @@ export const rarities = [
 export const items = {
     weapons: [
         {
+            id: "sword",
+            type: "weapon",
             name: "Sword",
             rarity: "Common",
             material: "Iron",
@@ -16,6 +18,8 @@ export const items = {
             description: "A basic iron sword."
         },
         {
+            id: "axe",
+            type: "weapon",
             name: "Axe",
             rarity: "Rare",
             material: "Steel",
@@ -25,6 +29,8 @@ export const items = {
             description: "A heavy steel axe."
         },
         {
+            id: "dagger",
+            type: "weapon",
             name: "Dagger",
             rarity: "Epic",
             material: "Obsidian",
@@ -34,6 +40,8 @@ export const items = {
             description: "A sharp obsidian dagger."
         },
         {
+            id: "mace",
+            type: "weapon",
             name: "Mace",
             rarity: "Epic",
             material: "Obsidian",
@@ -43,6 +51,8 @@ export const items = {
             description: "A sharp obsidian dagger."
         },
         {
+            id: "scythe",
+            type: "weapon",
             name: "Scythe",
             rarity: "Epic",
             material: "Obsidian",
@@ -52,6 +62,8 @@ export const items = {
             description: "A sharp obsidian dagger."
         },
         {
+            id: "shuriken",
+            type: "weapon",
             name: "Shuriken",
             rarity: "Epic",
             material: "Obsidian",
@@ -61,6 +73,8 @@ export const items = {
             description: "A sharp obsidian dagger."
         },
         {
+            id: "bow",
+            type: "weapon",
             name: "Bow",
             rarity: "Epic",
             material: "Obsidian",
@@ -70,6 +84,8 @@ export const items = {
             description: "A sharp obsidian dagger."
         },
         {
+            id: "crossbow",
+            type: "weapon",
             name: "Crossbow",
             rarity: "Epic",
             material: "Obsidian",
@@ -82,6 +98,8 @@ export const items = {
 
     armors: [
         {
+            id: "leath_armor",
+            type: "armor",
             name: "Leather Armor",
             rarity: "Common",
             material: "Leather",
@@ -91,6 +109,8 @@ export const items = {
             description: "Basic leather armor."
         },
         {
+            id: "chainmail_armor",
+            type: "armor",
             name: "Chainmail",
             rarity: "Rare",
             material: "Steel",
@@ -100,6 +120,8 @@ export const items = {
             description: "Protective steel chainmail."
         },
         {
+            id: "plate_armor",
+            type: "armor",
             name: "Plate Armor",
             rarity: "Epic",
             material: "Steel",
@@ -112,6 +134,8 @@ export const items = {
 
     consumables: [
         {
+            id: "health_potion",
+            type: "consumable",
             name: "Health Potion",
             rarity: "Common",
             material: "Glass",
@@ -122,6 +146,8 @@ export const items = {
             description: "Restores some health."
         },
         {
+            id: "mana_potion",
+            type: "consumable",
             name: "Mana Potion",
             rarity: "Rare",
             material: "Glass",

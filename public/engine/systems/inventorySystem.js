@@ -1,16 +1,34 @@
 import { state } from "../state.js"
 import { updateUI } from "../ui.js"
 
-export function addItem(item) {
+// export function addItem(item) {
 
-    state.player.inventory.push(item)
+//     state.player.inventory.push(item)
 
-    console.log("Item added:", item.name)
+//     console.log("Item added:", item.name)
 
-    updateUI()
+//     updateUI()
+
+// }
+export function addItem(item){
+
+    // ensure inventory exists
+    if(!state.inventory){
+        state.inventory = []
+    }
+
+    const existing = state.inventory.find(i => i.id === item.id)
+
+    if(existing){
+        existing.quantity += item.quantity || 1
+    } else {
+        state.inventory.push({
+            ...item,
+            quantity: item.quantity || 1
+        })
+    }
 
 }
-
 export function removeItem(index) {
 
     state.player.inventory.splice(index, 1)
@@ -51,44 +69,8 @@ export function equipItem(index) {
 }
 
 // export function renderInventory() {
-//     const invDiv = document.getElementById("inventory")
-//     invDiv.innerHTML = ""
 
-//     state.player.inventory.forEach(item => {
-//         const itemEl = document.createElement("div")
-//         itemEl.classList.add("inventory-item")
-
-//         // Item image
-//         const img = document.createElement("img")
-//         img.src = item.image || "assets/items/default.png"
-//         img.alt = item.name
-//         img.classList.add("inventory-img")
-//         itemEl.appendChild(img)
-
-//         // Item name with rarity color
-//         const name = document.createElement("span")
-//         name.textContent = item.name
-//         name.style.color = getRarityColor(item.rarity)
-//         itemEl.appendChild(name)
-
-//         // Tooltip
-//         const tooltip = document.createElement("div")
-//         tooltip.classList.add("tooltip")
-//         tooltip.innerHTML = `
-//       <strong>${item.name}</strong><br>
-//       ATK: ${item.attack || 0}<br>
-//       DEF: ${item.defense || 0}<br>
-//       Rarity: ${item.rarity}<br>
-//       ${item.description || ""}
-//     `
-//         itemEl.appendChild(tooltip)
-
-//         invDiv.appendChild(itemEl)
-//     })
-// }
-
-// export function renderInventory() {
-//   const invDiv = document.getElementById("inventory")
+//   const invDiv = document.getElementById("inventoryGrid")
 //   if (!invDiv) return
 
 //   invDiv.innerHTML = ""
@@ -96,22 +78,22 @@ export function equipItem(index) {
 //   state.player.inventory.forEach(item => {
 
 //     const itemEl = document.createElement("div")
-//     itemEl.classList.add("inventory-item")
+//     itemEl.classList.add("inventory-slot")
 
 //     const img = document.createElement("img")
-//     img.src = item.image
+//     img.src = item.image || "assets/items/default.png"
 //     img.classList.add("inventory-img")
 
 //     const name = document.createElement("div")
 //     name.textContent = item.name
 //     name.style.color = getRarityColor(item.rarity);
-//     name.classList.add("item-name")
+//     name.classList.add(`rarity-${item.rarity.toLowerCase()}`)
 
 //     const tooltip = document.createElement("div")
 //     tooltip.classList.add("tooltip")
 
 //     tooltip.innerHTML = `
-//       <strong>z${item.name}</strong><br>
+//       <strong>${item.name}</strong><br>
 //       ATK: ${item.attack || 0}<br>
 //       DEF: ${item.defense || 0}<br>
 //       Rarity: ${item.rarity}<br>
@@ -129,43 +111,39 @@ export function equipItem(index) {
 
 export function renderInventory() {
 
-  const invDiv = document.getElementById("inventoryGrid")
-  if (!invDiv) return
+    const grid = document.getElementById("inventoryGrid")
+    grid.innerHTML = ""
 
-  invDiv.innerHTML = ""
+    if (!state.inventory) return
 
-  state.player.inventory.forEach(item => {
+    state.inventory.forEach(item => {
 
-    const itemEl = document.createElement("div")
-    itemEl.classList.add("inventory-slot")
+        const slot = document.createElement("div")
+        slot.className = `inventory-slot rarity-${item.rarity.toLowerCase()}`
 
-    const img = document.createElement("img")
-    img.src = item.image || "assets/items/default.png"
-    img.classList.add("inventory-img")
+        slot.innerHTML = `
+            <img src="${item.image}" class="inventory-img">
 
-    const name = document.createElement("div")
-    name.textContent = item.name
-    name.style.color = getRarityColor(item.rarity);
-    name.classList.add(`rarity-${item.rarity.toLowerCase()}`)
+            <div class="item-name">${item.name}</div>
 
-    const tooltip = document.createElement("div")
-    tooltip.classList.add("tooltip")
+            ${item.quantity > 1 ? `<div class="item-qty">x${item.quantity}</div>` : ""}
 
-    tooltip.innerHTML = `
-      <strong>${item.name}</strong><br>
-      ATK: ${item.attack || 0}<br>
-      DEF: ${item.defense || 0}<br>
-      Rarity: ${item.rarity}<br>
-      ${item.description || ""}
-    `
+            <div class="tooltip tooltip-${item.rarity.toLowerCase()}">
+                <b>${item.name}</b><br>
+                Rarity: ${item.rarity}<br>
+                Type: ${item.type}<br>
 
-    itemEl.appendChild(img)
-    itemEl.appendChild(name)
-    itemEl.appendChild(tooltip)
+                ${item.attack ? `Attack: ${item.attack}<br>` : ""}
+                ${item.defense ? `Defense: ${item.defense}<br>` : ""}
 
-    invDiv.appendChild(itemEl)
+                ${item.description ? `<br>${item.description}` : ""}
+            </div>
+        `
 
-  })
+        grid.appendChild(slot)
+
+    })
+
 }
 
 function getRarityColor(rarity) {

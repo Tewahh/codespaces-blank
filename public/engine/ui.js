@@ -75,7 +75,7 @@ function handleDeath() {
 }
 
 // Heal player a bit between scenes
-function healBetweenScenes() {
+export function healBetweenScenes() {
     state.player.health = Math.min(state.player.health + 10, state.player.maxHealth)
 }
 

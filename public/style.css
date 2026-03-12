@@ -285,3 +285,16 @@ button:hover{
   visibility:hidden;
   opacity:0;
 }
+
+.item-qty{
+  position:absolute;
+  bottom:4px;
+  right:6px;
+
+  font-size:12px;
+  font-weight:bold;
+
+  background:rgba(0,0,0,0.7);
+  padding:2px 5px;
+  border-radius:4px;
+}
