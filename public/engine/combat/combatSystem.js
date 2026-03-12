@@ -1,90 +1,87 @@
-import { state } from "../state.js"
-import { updateUI } from "../ui.js"
-import { enemies } from "../../data/enemies.js"
-import { addXP } from "../systems/levelSystem.js"
-import { addItem } from "../systems/inventorySystem.js"
-import { generateLoot } from "../generator/lootGenerator.js"
-import { buildTurnQueue } from "../systems/turnSystem.js"
-import { healBetweenScenes } from "../ui.js"
-export function startCombat(enemyNames) {
-    state.combat.active = true
-    state.combat.enemies = enemyNames.map(name => ({ ...enemies[name] }))
+import { state } from "../state.js";
+import { attackBtn, updateUI } from "../ui.js";
+import { buildTurnQueue } from "../systems/turnSystem.js";
+import { addItem } from "../systems/inventorySystem.js";
+import { generateLoot } from "../generator/lootGenerator.js";
+import { addXP } from "../systems/levelSystem.js";
+
+export function startCombat(enemyNames, renderInventoryFn) {
+    state.combat.active = true;
+    state.combat.enemies = enemyNames.map(name => ({ ...state.enemies[name] }));
 
     const combatDiv = document.getElementById("combat");
-    console.log("asd");
     attackBtn.style.display = "inline-block";
-    attackBtn.style.visibility="visible";
-    console.log(attackBtn.style.visibility)
+    attackBtn.style.visibility = "visible";
     attackBtn.style.opacity = "1";
-    console.log(attackBtn.style.opacity)
     combatDiv.classList.remove("hidden");
 
-    updateCombatUI();
+    updateCombatUI(renderInventoryFn);
 }
 
-
-export function playerAttack() {
-
-    const queue = buildTurnQueue(
-        state.player,
-        state.combat.enemies
-    )
+// Player turn
+export function playerAttack(renderInventoryFn) {
+    const queue = buildTurnQueue(state.player, state.combat.enemies);
 
     queue.forEach(turn => {
         if (turn.type === "player") {
-            const enemy = state.combat.enemies[0]
-            enemy.hp -= state.player.attack
-            console.log(`You hit ${enemy.name} for ${state.player.attack} damage!`)
-            if (enemy.hp <= 0) {
-                console.log(`${enemy.name} defeated!`)
-                state.combat.enemies.shift()
-            }
+            const enemy = state.combat.enemies[0];
+            enemy.hp -= state.player.attack;
+            if (enemy.hp <= 0) state.combat.enemies.shift();
         } else {
-            state.player.health -= turn.enemy.attack
-            console.log(`${turn.enemy.name} hits you for ${turn.enemy.attack}!`)
+            state.player.health -= turn.enemy.attack;
         }
-    })
+    });
 
-    updateCombatUI()
+    clampStats();
+    updateCombatUI(renderInventoryFn);
+    updateUI(state, renderInventoryFn);
 
-    if (state.player.health <= 0) {
-
-        alert("You died")
-
-    }
-
-    if (state.combat.enemies.length === 0) {
-
-        endCombat()
-
-    }
-
+    if (state.player.health <= 0) handleDeath(renderInventoryFn);
+    else if (state.combat.enemies.length === 0) endCombat(renderInventoryFn);
 }
 
-export function endCombat() {
-    state.combat.active = false
-    document.getElementById("combat").classList.add("hidden")
-    attackBtn.style.display = "none"
+// End combat
+export function endCombat(renderInventoryFn) {
+    state.combat.active = false;
+    document.getElementById("combat").classList.add("hidden");
+    attackBtn.style.display = "none";
 
-    addXP(5)
-    const loot = generateLoot()
-    addItem(loot)
-    console.log("Loot:", loot.name)
+    addXP(5);
+    const loot = generateLoot();
+    addItem(loot, renderInventoryFn);
 
-    // Heal slightly after combat
-    healBetweenScenes()
-
-    updateUI()
+    updateUI(state, renderInventoryFn);
 }
 
-export function updateCombatUI() {
-    const enemyDiv = document.getElementById("enemy")
-    if (state.combat.enemies.length === 0) {
-        enemyDiv.textContent = "No enemies left!"
-        return
+// Update combat UI
+export function updateCombatUI(renderInventoryFn) {
+    const enemyDiv = document.getElementById("enemy");
+    if (!state.combat.enemies.length) {
+        enemyDiv.textContent = "No enemies left!";
+        return;
     }
-
     enemyDiv.innerHTML = state.combat.enemies
         .map(e => `${e.name} HP: ${e.hp}`)
-        .join("<br>")
+        .join("<br>");
+
+    updateUI(state, renderInventoryFn);
+}
+
+// Clamp player stats
+function clampStats() {
+    const p = state.player;
+    p.health = Math.max(0, p.health);
+    p.maxHealth = Math.max(1, p.maxHealth);
+    p.attack = Math.max(0, p.attack);
+    p.defense = Math.max(0, p.defense);
+}
+
+// Handle death
+function handleDeath(renderInventoryFn) {
+    alert("You died! Respawning...");
+    state.player.health = state.player.maxHealth;
+    state.combat.active = false;
+    document.getElementById("combat").classList.add("hidden");
+
+    updateUI(state, renderInventoryFn);
 }

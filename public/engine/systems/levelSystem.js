@@ -1,36 +1,28 @@
-import { state } from "../state.js"
-import { updateUI } from "../ui.js"
+import { state } from "../state.js";
+import { updateUI } from "../ui.js";
 
-export function addXP(amount){
+export function addXP(amount) {
+  state.player.xp += amount;
 
-state.player.xp+=amount
+  while (state.player.xp >= state.player.xpToNext) {
+    levelUp();
+  }
 
-while(state.player.xp>=state.player.xpToNext){
-
-levelUp()
-
+  updateUI();
 }
 
-updateUI()
+function levelUp() {
+  state.player.level++;
 
-}
+  state.player.xp -= state.player.xpToNext;
 
-function levelUp(){
+  state.player.xpToNext = Math.floor(state.player.xpToNext * 1.5);
 
-state.player.level++
+  state.player.maxHealth += 2;
+  state.player.attack += 1;
+  state.player.defense += 1;
 
-state.player.xp-=state.player.xpToNext
+  state.player.health = state.player.maxHealth;
 
-state.player.xpToNext=Math.floor(
-state.player.xpToNext*1.5
-)
-
-state.player.maxHealth+=2
-state.player.attack+=1
-state.player.defense+=1
-
-state.player.health=state.player.maxHealth
-
-console.log("Level Up!")
-
+  console.log("Level Up!");
 }

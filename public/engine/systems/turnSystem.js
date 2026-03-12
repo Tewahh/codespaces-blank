@@ -1,22 +1,20 @@
-export function buildTurnQueue(player,enemies){
+export function buildTurnQueue(player, enemies) {
+  const queue = [];
 
-const queue=[]
+  queue.push({
+    type: "player",
+    speed: player.speed,
+  });
 
-queue.push({
-type:"player",
-speed:player.speed
-})
+  enemies.forEach((e) => {
+    queue.push({
+      type: "enemy",
+      enemy: e,
+      speed: e.speed || 2,
+    });
+  });
 
-enemies.forEach(e=>{
-queue.push({
-type:"enemy",
-enemy:e,
-speed:e.speed||2
-})
-})
+  queue.sort((a, b) => b.speed - a.speed);
 
-queue.sort((a,b)=>b.speed-a.speed)
-
-return queue
-
+  return queue;
 }

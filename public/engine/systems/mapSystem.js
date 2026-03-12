@@ -1,54 +1,43 @@
-import { worldMap } from "../../data/worldMap.js"
-import { loadScene } from "../sceneManager.js"
-import { startCombat } from "../combat/combatSystem.js"
+import { worldMap } from "../../data/worldMap.js";
+import { loadScene } from "../sceneManager.js";
+import { startCombat } from "../combat/combatSystem.js";
 
-export function renderMap(){
+export function renderMap() {
+  const container = document.getElementById("choices");
 
-const container=document.getElementById("choices")
+  container.innerHTML = "";
 
-container.innerHTML=""
+  worldMap.forEach((loc) => {
+    const btn = document.createElement("button");
 
-worldMap.forEach(loc=>{
+    btn.textContent = loc.name;
 
-const btn=document.createElement("button")
+    if (!loc.unlocked) btn.disabled = true;
 
-btn.textContent=loc.name
+    btn.onclick = () => travelTo(loc.id);
 
-if(!loc.unlocked)
-btn.disabled=true
-
-btn.onclick=()=>travelTo(loc.id)
-
-container.appendChild(btn)
-
-})
-
+    container.appendChild(btn);
+  });
 }
 
-export function unlockLocation(id){
+export function unlockLocation(id) {
+  const loc = worldMap.find((l) => l.id === id);
 
-const loc=worldMap.find(l=>l.id===id)
-
-if(loc)loc.unlocked=true
-
+  if (loc) loc.unlocked = true;
 }
 
-export function travelTo(id){
+export function travelTo(id) {
+  const loc = worldMap.find((l) => l.id === id);
 
-const loc=worldMap.find(l=>l.id===id)
+  if (!loc?.unlocked) return;
 
-if(!loc || !loc.unlocked)return
+  loadScene(loc.scene);
 
-loadScene(loc.scene)
+  if (Math.random() < 0.3) {
+    const enemies = ["wolf", "bandit"];
 
-if(Math.random()<0.3){
+    const enemy = enemies[Math.floor(Math.random() * enemies.length)];
 
-const enemies=["wolf","bandit"]
-
-const enemy=enemies[Math.floor(Math.random()*enemies.length)]
-
-startCombat([enemy])
-
-}
-
+    startCombat([enemy]);
+  }
 }

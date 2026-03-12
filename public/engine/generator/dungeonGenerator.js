@@ -1,50 +1,38 @@
-import { state } from "../state.js"
-import { startCombat } from "../combat/combatSystem.js"
-import { addItem } from "../systems/inventorySystem.js"
-import { generateLoot } from "./lootGenerator.js"
+import { state } from "../state.js";
+import { startCombat } from "../combat/combatSystem.js";
+import { addItem } from "../systems/inventorySystem.js";
+import { generateLoot } from "./lootGenerator.js";
 
-export function generateDungeon(size=6){
+export function generateDungeon(size = 6) {
+  const dungeon = [];
 
-const dungeon=[]
+  for (let i = 0; i < size; i++) {
+    dungeon.push({
+      enemy: Math.random() < 0.6,
 
-for(let i=0;i<size;i++){
+      treasure: Math.random() < 0.4,
 
-dungeon.push({
+      visited: false,
+    });
+  }
 
-enemy:Math.random()<0.6,
-
-treasure:Math.random()<0.4,
-
-visited:false
-
-})
-
+  return dungeon;
 }
 
-return dungeon
+export function enterDungeon() {
+  state.dungeon = generateDungeon();
 
+  state.dungeonRoom = 0;
+
+  loadRoom();
 }
 
-export function enterDungeon(){
+export function loadRoom() {
+  const room = state.dungeon[state.dungeonRoom];
 
-state.dungeon=generateDungeon()
+  if (!room) return;
 
-state.dungeonRoom=0
+  if (room.enemy) startCombat(["wolf"]);
 
-loadRoom()
-
-}
-
-export function loadRoom(){
-
-const room=state.dungeon[state.dungeonRoom]
-
-if(!room)return
-
-if(room.enemy)
-startCombat(["wolf"])
-
-if(room.treasure)
-addItem(generateLoot())
-
+  if (room.treasure) addItem(generateLoot());
 }

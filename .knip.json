@@ -1,0 +1,4 @@
+{
+  "project": ["public/entry.js"],
+  "ignore": ["public/entry.js", "node_modules/**", "dist/**"]
+}

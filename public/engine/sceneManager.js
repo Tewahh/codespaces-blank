@@ -1,46 +1,39 @@
+import { state } from "./state.js";
 import { scenes } from "../data/scenes.js"
-import { state } from "./state.js"
-import { updateUI } from "./ui.js"
-import { startCombat } from "./combat/combatSystem.js"
+import { updateUI } from "./ui.js";
+import { startCombat } from "./combat/combatSystem.js";
 
-export function loadScene(name) {
+const dialogue = document.getElementById("dialogue");
+const choicesDiv = document.getElementById("choicesDiv");
 
-    const scene = scenes[name]
+export async function loadScene(name) {
+  const scene = scenes[name];
 
-    if (!scene) return
+  if (!scene) return;
 
-    state.scene = name
+  state.scene = name;
 
-    dialogue.textContent = scene.text
+  dialogue.textContent = scene.text;
 
-    renderChoices(scene.choices)
+  renderChoices(scene.choices);
 
-    updateUI()
-
+  updateUI();
 }
 
-function renderChoices(choices) {
+async function renderChoices(choices) {
+  choicesDiv.innerHTML = "";
 
-    choicesDiv.innerHTML = ""
+  choices.forEach((choice) => {
+    const btn = document.createElement("button");
 
-    choices.forEach(choice => {
+    btn.textContent = choice.text;
 
-        const btn = document.createElement("button")
+    btn.onclick = () => {
+      if (choice.combat) startCombat(choice.combat);
 
-        btn.textContent = choice.text
+      if (choice.next) loadScene(choice.next);
+    };
 
-        btn.onclick = () => {
-
-            if (choice.combat)
-                startCombat(choice.combat)
-
-            if (choice.next)
-                loadScene(choice.next)
-
-        }
-
-        choicesDiv.appendChild(btn)
-
-    })
-
+    choicesDiv.appendChild(btn);
+  });
 }
