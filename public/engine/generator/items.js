@@ -1,8 +1,8 @@
 export const rarities = [
-  { name: "Common", multi: 1 },
-  { name: "Rare", multi: 1.5 },
-  { name: "Epic", multi: 2 },
-  { name: "Legendary", multi: 3 },
+  { name: "Common", multi: 1, chance: 60 },
+  { name: "Rare", multi: 1.5, chance: 25 },
+  { name: "Epic", multi: 2, chance: 10 },
+  { name: "Legendary", multi: 3, chance: 5 }
 ];
 export const items = {
   weapons: [

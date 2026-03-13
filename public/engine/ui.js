@@ -1,4 +1,5 @@
 import { renderInventory } from "./systems/inventorySystem.js";
+import { renderEquipment } from "./systems/equipmentSystem.js";
 
 export const stats = document.getElementById("stats");
 export const health = document.getElementById("health");
@@ -10,10 +11,15 @@ export const inventoryGrid = document.getElementById("inventory-grid");
 
 // Generic UI updater
 export function updateUI(state) {
-  stats.textContent = `LVL ${state.player.level} ATK ${state.player.attack} DEF ${state.player.defense}`;
+  stats.innerHTML = `
+  <div id="stat-level" style="display: inline-block;">LVL ${state.player.level}</div>  |
+  <div id="stat-attack" style="display: inline-block;">ATK ${state.player.attack}</div>        | 
+  <div id="stat-defense" style="display: inline-block;">DEF ${state.player.defense}</div> |
+  <div id="stat-coins" style="display: inline-block;">COINS ${state.player.coins}</div>`;
   health.textContent = `HP ${state.player.health}/${state.player.maxHealth}`;
   xp.textContent = `XP ${state.player.xp}/${state.player.xpToNext}`;
 
+  renderEquipment();
   renderInventory();
 }
 

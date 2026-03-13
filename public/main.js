@@ -154,6 +154,15 @@ loginForm?.addEventListener("submit", async (e) => {
     }
     safeAssign(state.player, result.player);
 
+    // Convert inventory from array to object if needed
+    if (Array.isArray(state.player.inventory)) {
+      state.player.inventory = {
+        items: state.player.inventory,
+        page: 0,
+        pageSize: 40, // 10x4 grid
+      };
+    }
+
     loginSection.style.display = "none";
     gameSection.style.display = "block";
 

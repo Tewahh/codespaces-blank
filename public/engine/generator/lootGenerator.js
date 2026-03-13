@@ -1,34 +1,68 @@
-import { items, rarities } from "./items.js";
+import { items } from "./items.js";
+import { rarities } from "./items.js";
+import { prefixes, suffixes } from "./modifiers.js";
+
+function rand(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 export function generateLoot() {
-  // Pick a random rarity
-  const rarity = rarities[Math.floor(Math.random() * rarities.length)];
-  // Choose a random category
-  const categories = Object.keys(items); // ["weapons", "armors", "consumables"]
-  const category = categories[Math.floor(Math.random() * categories.length)];
-  // Pick a random item from that category
+
+  const rarity = pickRarity();
+
+  const categories = Object.keys(items);
+  const category = rand(categories);
+
   const itemList = items[category];
-  // Filter by rarity? Optional: only allow items of selected rarity
-  // const filteredbyrarity = itemlist.filter(i => i.rarity === rarity.name)
-  // const selectedItem = filteredbyrarity.length ? filteredbyrarity[math.floor(math.random() *;; filteredByRarity.length)] : itemList[Math.floor(Math.random() * itemList.length)]
+  const base = rand(itemList);
 
-  const selectedItem = itemList[Math.floor(Math.random() * itemList.length)];
+  const prefix = Math.random() < 0.4 ? rand(prefixes) : null;
+  const suffix = Math.random() < 0.4 ? rand(suffixes) : null;
 
-  // Optionally, scale stats by rarity multiplier
-  const loot = { ...selectedItem }; // copy to avoid modifying original
+  const loot = structuredClone(base);
 
-  if (category === "weapons") {
-    loot.attack = Math.floor((loot.attack || 1) * rarity.multi);
-  } else if (category === "armors") {
-    loot.defense = Math.floor((loot.defense || 0) * rarity.multi);
-  } else if (category === "consumables") {
-    if (loot.heal) loot.heal = Math.floor(loot.heal * rarity.multi);
-    if (loot.mana) loot.mana = Math.floor(loot.mana * rarity.multi);
+  // random stat variance
+  const variance = 0.85 + Math.random() * 0.3;
+
+  if (loot.attack)
+    loot.attack = Math.floor(loot.attack * rarity.multi * variance);
+
+  if (loot.defense)
+    loot.defense = Math.floor(loot.defense * rarity.multi * variance);
+
+  if (loot.heal)
+    loot.heal = Math.floor(loot.heal * rarity.multi);
+
+  if (loot.mana)
+    loot.mana = Math.floor(loot.mana * rarity.multi);
+
+  if (prefix) {
+    loot.name = `${prefix.name} ${loot.name}`;
+    if (prefix.attack) loot.attack += prefix.attack;
+    if (prefix.defense) loot.defense += prefix.defense;
   }
 
-  // Update loot name and rarity to match generated rarity
-  loot.name = `${rarity.name} ${selectedItem.name}`;
+  if (suffix) {
+    loot.name = `${loot.name} ${suffix.name}`;
+    if (suffix.attack) loot.attack += suffix.attack;
+    if (suffix.defense) loot.defense += suffix.defense;
+  }
+
+  loot.name = `${rarity.name} ${loot.name}`;
   loot.rarity = rarity.name;
+  loot.category = category;
 
   return loot;
+}
+
+function pickRarity() {
+  const roll = Math.random() * 100;
+  let total = 0;
+
+  for (const r of rarities) {
+    total += r.chance;
+    if (roll <= total) return r;
+  }
+
+  return rarities[0];
 }

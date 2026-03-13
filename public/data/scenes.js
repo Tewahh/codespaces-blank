@@ -23,7 +23,7 @@ export const scenes = {
     text: "The blacksmith wipes sweat from his brow. Weapons and armor line the walls.",
     choices: [
       { text: "Browse weapons", shop: "weapons" },
-      { text: "Browse armor", shop: "armor" },
+      { text: "Browse armors", shop: "armors" },
       { text: "Return to square", next: "village_square" },
     ],
   },
