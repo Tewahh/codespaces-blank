@@ -8,7 +8,7 @@ export function addXP(amount) {
     levelUp();
   }
 
-  updateUI();
+  updateUI(state);
 }
 
 function levelUp() {

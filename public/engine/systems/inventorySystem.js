@@ -1,55 +1,55 @@
 import { state } from "../state.js";
 import { updateUI } from "../ui.js";
 
-export function addItem(item, renderInventoryFn) {
-    if (!state.inventory) state.inventory = [];
+export function addItem(item) {
+  if (!state.player.inventory) state.player.inventory = [];
 
-    const existing = state.inventory.find(i => i.id === item.id);
-    if (existing) existing.quantity += item.quantity || 1;
-    else state.inventory.push({ ...item, quantity: item.quantity || 1 });
+  const existing = state.player.inventory.find((i) => i.id === item.id);
+  if (existing) existing.quantity += item.quantity || 1;
+  else state.player.inventory.push({ ...item, quantity: item.quantity || 1 });
 
-    updateUI(state, renderInventoryFn);
+  updateUI(state);
 }
 
-export function removeItem(index, renderInventoryFn) {
-    state.player.inventory.splice(index, 1);
-    updateUI(state, renderInventoryFn);
+export function removeItem(index) {
+  state.player.inventory.splice(index, 1);
+  updateUI(state);
 }
 
-export function equipItem(index, renderInventoryFn) {
-    const item = state.player.inventory[index];
-    if (!item) return;
+export function equipItem(index) {
+  const item = state.player.inventory[index];
+  if (!item) return;
 
-    if (item.type === "weapon") {
-        if (state.player.equipment.weapon)
-            state.player.attack -= state.player.equipment.weapon.attack;
+  if (item.type === "weapon") {
+    if (state.player.equipment.weapon)
+      state.player.attack -= state.player.equipment.weapon.attack;
 
-        state.player.equipment.weapon = item;
-        state.player.attack += item.attack;
-    }
+    state.player.equipment.weapon = item;
+    state.player.attack += item.attack;
+  }
 
-    if (item.type === "armor") {
-        if (state.player.equipment.armor)
-            state.player.defense -= state.player.equipment.armor.defense;
+  if (item.type === "armor") {
+    if (state.player.equipment.armor)
+      state.player.defense -= state.player.equipment.armor.defense;
 
-        state.player.equipment.armor = item;
-        state.player.defense += item.defense;
-    }
+    state.player.equipment.armor = item;
+    state.player.defense += item.defense;
+  }
 
-    updateUI(state, renderInventoryFn);
+  updateUI(state);
 }
 
 export function renderInventory() {
-    const grid = document.getElementById("inventoryGrid");
-    grid.innerHTML = "";
+  const grid = document.getElementById("inventory-grid");
+  grid.innerHTML = "";
 
-    if (!state.inventory) return;
+  if (!state.player.inventory) return;
 
-    state.inventory.forEach((item) => {
-        const slot = document.createElement("div");
-        slot.className = `inventory-slot rarity-${item.rarity.toLowerCase()}`;
+  state.player.inventory.forEach((item) => {
+    const slot = document.createElement("div");
+    slot.className = `inventory-slot rarity-${item.rarity.toLowerCase()}`;
 
-        slot.innerHTML = `
+    slot.innerHTML = `
             <img src="${item.image}" class="inventory-img">
             <div class="item-name">${item.name}</div>
             ${item.quantity > 1 ? `<div class="item-qty">x${item.quantity}</div>` : ""}
@@ -63,6 +63,6 @@ export function renderInventory() {
             </div>
         `;
 
-        grid.appendChild(slot);
-    });
+    grid.appendChild(slot);
+  });
 }

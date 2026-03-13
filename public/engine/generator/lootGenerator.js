@@ -3,17 +3,14 @@ import { items, rarities } from "./items.js";
 export function generateLoot() {
   // Pick a random rarity
   const rarity = rarities[Math.floor(Math.random() * rarities.length)];
-
   // Choose a random category
   const categories = Object.keys(items); // ["weapons", "armors", "consumables"]
   const category = categories[Math.floor(Math.random() * categories.length)];
-
   // Pick a random item from that category
   const itemList = items[category];
-
   // Filter by rarity? Optional: only allow items of selected rarity
-  // const filteredByRarity = itemList.filter(i => i.rarity === rarity.name)
-  // const selectedItem = filteredByRarity.length ? filteredByRarity[Math.floor(Math.random() * filteredByRarity.length)] : itemList[Math.floor(Math.random() * itemList.length)]
+  // const filteredbyrarity = itemlist.filter(i => i.rarity === rarity.name)
+  // const selectedItem = filteredbyrarity.length ? filteredbyrarity[math.floor(math.random() *;; filteredByRarity.length)] : itemList[Math.floor(Math.random() * itemList.length)]
 
   const selectedItem = itemList[Math.floor(Math.random() * itemList.length)];
 

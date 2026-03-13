@@ -4,10 +4,11 @@ import { buildTurnQueue } from "../systems/turnSystem.js";
 import { addItem } from "../systems/inventorySystem.js";
 import { generateLoot } from "../generator/lootGenerator.js";
 import { addXP } from "../systems/levelSystem.js";
+import { enemies } from "../../data/enemies.js";
 
-export function startCombat(enemyNames, renderInventoryFn) {
+export function startCombat(enemyNames) {
     state.combat.active = true;
-    state.combat.enemies = enemyNames.map(name => ({ ...state.enemies[name] }));
+    state.combat.enemies = enemyNames.map((name) => ({ ...enemies[name] }));
 
     const combatDiv = document.getElementById("combat");
     attackBtn.style.display = "inline-block";
@@ -15,14 +16,14 @@ export function startCombat(enemyNames, renderInventoryFn) {
     attackBtn.style.opacity = "1";
     combatDiv.classList.remove("hidden");
 
-    updateCombatUI(renderInventoryFn);
+    updateCombatUI();
 }
 
 // Player turn
-export function playerAttack(renderInventoryFn) {
+export function playerAttack() {
     const queue = buildTurnQueue(state.player, state.combat.enemies);
 
-    queue.forEach(turn => {
+    queue.forEach((turn) => {
         if (turn.type === "player") {
             const enemy = state.combat.enemies[0];
             enemy.hp -= state.player.attack;
@@ -33,38 +34,38 @@ export function playerAttack(renderInventoryFn) {
     });
 
     clampStats();
-    updateCombatUI(renderInventoryFn);
-    updateUI(state, renderInventoryFn);
+    updateCombatUI();
+    updateUI(state);
 
-    if (state.player.health <= 0) handleDeath(renderInventoryFn);
-    else if (state.combat.enemies.length === 0) endCombat(renderInventoryFn);
+    if (state.player.health <= 0) handleDeath();
+    else if (state.combat.enemies.length === 0) endCombat();
 }
 
 // End combat
-export function endCombat(renderInventoryFn) {
+export function endCombat() {
     state.combat.active = false;
     document.getElementById("combat").classList.add("hidden");
     attackBtn.style.display = "none";
 
     addXP(5);
     const loot = generateLoot();
-    addItem(loot, renderInventoryFn);
+    addItem(loot);
 
-    updateUI(state, renderInventoryFn);
+    updateUI(state);
 }
 
 // Update combat UI
-export function updateCombatUI(renderInventoryFn) {
+export function updateCombatUI() {
     const enemyDiv = document.getElementById("enemy");
     if (!state.combat.enemies.length) {
         enemyDiv.textContent = "No enemies left!";
         return;
     }
     enemyDiv.innerHTML = state.combat.enemies
-        .map(e => `${e.name} HP: ${e.hp}`)
+        .map((e) => `${e.name} HP: ${e.hp}`)
         .join("<br>");
 
-    updateUI(state, renderInventoryFn);
+    updateUI(state);
 }
 
 // Clamp player stats
@@ -77,11 +78,27 @@ function clampStats() {
 }
 
 // Handle death
-function handleDeath(renderInventoryFn) {
+function handleDeath() {
     alert("You died! Respawning...");
     state.player.health = state.player.maxHealth;
     state.combat.active = false;
     document.getElementById("combat").classList.add("hidden");
 
-    updateUI(state, renderInventoryFn);
+    updateUI(state);
 }
+
+attackBtn.addEventListener("click", () => {
+    if (!state.combat.active) return;
+
+    playerAttack();
+    clampStats();
+    updateCombatUI();
+    updateUI(state);
+
+    // Check for death
+    if (state.player.health <= 0) {
+        handleDeath();
+    } else if (state.combat.enemies.length === 0) {
+        endCombat();
+    }
+});

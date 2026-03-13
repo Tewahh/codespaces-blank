@@ -16,15 +16,14 @@ function enableAdminPanel() {
   document.getElementById("spawnLootBtn").addEventListener("click", () => {
     const loot = generateLoot();
     addItem(loot);
-    state.player.inventory.push(loot);
     console.log("Spawned loot:", loot);
-    updateUI();
+    updateUI(state);
   });
 
   document.getElementById("fullHealBtn").addEventListener("click", () => {
     state.player.health = state.player.maxHealth;
     console.log("Player healed to full");
-    updateUI();
+    updateUI(state);
   });
 
   document.getElementById("maxStatsBtn").addEventListener("click", () => {
@@ -32,9 +31,10 @@ function enableAdminPanel() {
     state.player.attack = 999;
     state.player.defense = 999;
     console.log("Player stats maxed");
-    updateUI();
+    updateUI(state);
   });
 }
+
 /* ======================
 GLOBAL ERROR HANDLING
 ====================== */
@@ -249,4 +249,4 @@ async function autosavePlayer() {
 }
 
 setInterval(autosavePlayer, 30000);
-setInterval(savePlayer, 1000); 
+setInterval(savePlayer, 10000);

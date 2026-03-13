@@ -5,13 +5,10 @@ body {
   font-family: "Courier New", monospace;
   background: #0b0b14;
   color: #e6e6e6;
-
   padding: 20px;
-
   display: grid;
   grid-template-columns: 250px 1fr 350px;
   gap: 20px;
-
   max-width: 1400px;
   margin: auto;
 }
@@ -25,20 +22,82 @@ PANELS
   border-radius: 6px;
   padding: 15px;
   box-shadow:
-    inset 0 0 8px rgba(255, 255, 255, 0.05),
-    0 0 10px rgba(0, 0, 0, 0.6);
+    inset 0 0 8px rgb(255 255 255 / 5%),
+    0 0 10px rgb(0 0 0 / 60%);
+}
+
+/* ======================
+STATS
+===================== */
+#char-stats {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+#char-stats li {
+  padding: 4px 0;
+  border-bottom: 1px solid rgb(255 255 255 / 5%);
+}
+
+.stat-hp {
+  color: #7fff7f;
+}
+
+.stat-mana {
+  color: #66c6ff;
+}
+
+.stat-attack {
+  color: #f66;
+}
+
+.stat-defense {
+  color: #ffe066;
+}
+
+/* ======================
+ABILITIES
+===================== */
+#char-abilities {
+  list-style: none;
+  padding: 0;
+}
+
+#char-abilities li {
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  background: #111;
+  border-left: 4px solid #777;
+  position: relative;
+}
+
+.ability-common {
+  border-left-color: #aaa;
+}
+
+.ability-rare {
+  border-left-color: #4aa3ff;
+}
+
+.ability-epic {
+  border-left-color: #c770ff;
+}
+
+.ability-legendary {
+  border-left-color: #ffa94d;
 }
 
 /* ======================
 CHARACTER LIST
 ===================== */
-#characterNames {
+#character-names {
   list-style: none;
   padding: 0;
   width: 200px;
 }
 
-#characterNames li {
+#character-names li {
   padding: 8px;
   margin-bottom: 6px;
   background: #1f1f33;
@@ -47,7 +106,7 @@ CHARACTER LIST
   transition: 0.15s;
 }
 
-#characterNames li:hover {
+#character-names li:hover {
   background: #2b2b45;
   border-color: #777;
 }
@@ -55,19 +114,19 @@ CHARACTER LIST
 /* ======================
 CHARACTER PANEL
 ===================== */
-#characterInfo {
+#character-info {
   flex: 1;
   width: 420px;
 }
 
-#charName {
+#char-name {
   font-size: 22px;
   font-weight: bold;
   color: #7fff7f;
   margin-bottom: 5px;
 }
 
-#charLore {
+#char-lore {
   font-style: italic;
   font-size: 14px;
   opacity: 0.8;
@@ -75,67 +134,9 @@ CHARACTER PANEL
 }
 
 /* ======================
-STATS
-===================== */
-#charStats {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 15px;
-}
-
-#charStats li {
-  padding: 4px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.stat-hp {
-  color: #7fff7f;
-}
-.stat-mana {
-  color: #66c6ff;
-}
-.stat-attack {
-  color: #ff6666;
-}
-.stat-defense {
-  color: #ffe066;
-}
-
-/* ======================
-ABILITIES
-===================== */
-#charAbilities {
-  list-style: none;
-  padding: 0;
-}
-
-#charAbilities li {
-  padding: 6px 8px;
-  margin-bottom: 6px;
-  background: #111;
-  border-left: 4px solid #777;
-  position: relative;
-}
-
-/* Ability rarity */
-.ability-common {
-  border-left-color: #aaa;
-}
-.ability-rare {
-  border-left-color: #4aa3ff;
-}
-.ability-epic {
-  border-left-color: #c770ff;
-}
-.ability-legendary {
-  border-left-color: #ffa94d;
-}
-
-/* ======================
 INVENTORY GRID
 ===================== */
-
-#inventoryGrid {
+#inventory-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 12px;
@@ -145,28 +146,22 @@ INVENTORY GRID
 /* ======================
 ITEM CARD
 ===================== */
-
 .inventory-slot {
   width: 100px;
   height: 130px;
-
   background: #151526;
   border: 2px solid #333;
   border-radius: 8px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-
   padding: 6px;
   position: relative;
-
   transition: 0.2s;
-
   box-shadow:
-    inset 0 0 5px rgba(255, 255, 255, 0.05),
-    0 2px 6px rgba(0, 0, 0, 0.7);
+    inset 0 0 5px rgb(255 255 255 / 5%),
+    0 2px 6px rgb(0 0 0 / 70%);
 }
 
 .inventory-slot:hover {
@@ -178,36 +173,26 @@ ITEM CARD
 /* ======================
 ITEM IMAGE
 ===================== */
-
 .inventory-img {
   width: 48px;
   height: 48px;
-
   margin-bottom: 6px;
-
   background: white;
   padding: 3px;
   border-radius: 6px;
-
   border: 1px solid #444;
-
   filter: brightness(1.2) contrast(1.3) drop-shadow(0 0 3px black);
 }
 
 /* ======================
 ITEM NAME
 ===================== */
-
 .item-name {
   font-size: 11px;
   text-align: center;
-
   line-height: 12px;
-
-  /* allow wrapping */
   white-space: normal;
-  word-break: break-word;
-
+  overflow-wrap: anywhere;
   width: 100%;
 }
 
@@ -221,44 +206,37 @@ RARITY BORDERS
 
 .rarity-rare {
   border-color: #4aa3ff;
-  box-shadow: 0 0 6px rgba(74, 163, 255, 0.5);
+  box-shadow: 0 0 6px rgb(74 163 255 / 50%);
 }
 
 .rarity-epic {
   border-color: #c770ff;
-  box-shadow: 0 0 6px rgba(199, 112, 255, 0.6);
+  box-shadow: 0 0 6px rgb(199 112 255 / 60%);
 }
 
 .rarity-legendary {
   border-color: #ffa94d;
-  box-shadow: 0 0 8px rgba(255, 169, 77, 0.7);
+  box-shadow: 0 0 8px rgb(255 169 77 / 70%);
 }
 
 /* ======================
 TOOLTIP
 ===================== */
-
 .tooltip {
   visibility: hidden;
   opacity: 0;
-
   position: absolute;
   bottom: 135px;
   left: 50%;
   transform: translateX(-50%);
-
-  background: #111122;
+  background: #112;
   border: 1px solid #555;
   border-radius: 6px;
-
   padding: 10px;
   font-size: 12px;
-
   width: max-content;
   max-width: 220px;
-
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
-
+  box-shadow: 0 0 12px rgb(0 0 0 / 80%);
   transition: opacity 0.15s;
   pointer-events: none;
 }
@@ -272,12 +250,15 @@ TOOLTIP
 .tooltip-common {
   color: #ddd;
 }
+
 .tooltip-rare {
   color: #4aa3ff;
 }
+
 .tooltip-epic {
   color: #c770ff;
 }
+
 .tooltip-legendary {
   color: #ffa94d;
 }
@@ -302,7 +283,7 @@ button:hover {
   border-color: #888;
 }
 
-#attackBtn {
+#attack-btn {
   visibility: hidden;
   opacity: 0;
 }
@@ -311,11 +292,9 @@ button:hover {
   position: absolute;
   bottom: 4px;
   right: 6px;
-
   font-size: 12px;
   font-weight: bold;
-
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0 0 0 / 70%);
   padding: 2px 5px;
   border-radius: 4px;
 }
