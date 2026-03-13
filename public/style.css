@@ -1,10 +1,12 @@
 /* ======================
 GLOBAL
 ===================== */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
-  font-family: "Arial Black", sans-serif;
+  font-family: 'Press Start 2P', cursive;
   background: #000000;
-  color: #daa520;
+  color: #00ff00;
   padding: 20px;
   display: grid;
   grid-template-columns: 250px 1fr 350px;
@@ -12,25 +14,39 @@ body {
   max-width: 1400px;
   margin: auto;
   text-transform: uppercase;
+  image-rendering: pixelated;
+}
+
+h1 {
+  font-size: 36px;
+  color: #00ff00;
+  text-align: center;
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+  text-shadow: none;
+}
+
+img {
+  image-rendering: pixelated;
 }
 
 /* ======================
 PANELS
 ===================== */
 .panel {
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00ff00;
   border-radius: 0;
   padding: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: none;
   position: relative;
-  transition: 0.15s ease;
+  transition: none;
 }
 
 .panel:hover {
-  border-color: #daa520;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  border-color: #ffff00;
+  background: #002200;
 }
 
 /* ======================
@@ -44,13 +60,13 @@ STATS
 
 #char-stats li {
   padding: 8px 0;
-  border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+  border-bottom: 2px solid #00aa00;
   font-weight: bold;
-  transition: 0.15s ease;
+  transition: none;
 }
 
 #char-stats li:hover {
-  border-bottom-color: #daa520;
+  border-bottom-color: #00ff00;
 }
 /* ======================
 ABILITIES
@@ -63,35 +79,33 @@ ABILITIES
 #char-abilities li {
   padding: 10px;
   margin-bottom: 10px;
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00aa00;
   border-radius: 0;
   position: relative;
-  transition: 0.15s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  transition: none;
+  box-shadow: none;
 }
 
 #char-abilities li:hover {
-  background: linear-gradient(145deg, #1a0000 0%, #2a0000 100%);
-  border-color: #daa520;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  background: #002200;
+  border-color: #00ff00;
 }
 
 .ability-common {
-  border-color: #654321;
+  border-color: #888888;
 }
 
 .ability-rare {
-  border-color: #8b0000;
+  border-color: #0000ff;
 }
 
 .ability-epic {
-  border-color: #dc143c;
+  border-color: #ff00ff;
 }
 
 .ability-legendary {
-  border-color: #daa520;
+  border-color: #ffff00;
 }
 
 /* ======================
@@ -107,19 +121,17 @@ CHARACTER LIST
 #character-names li {
   padding: 10px;
   margin-bottom: 8px;
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00aa00;
   border-radius: 0;
   cursor: pointer;
-  transition: 0.15s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  transition: none;
+  box-shadow: none;
 }
 
 #character-names li:hover {
-  background: linear-gradient(145deg, #1a0000 0%, #2a0000 100%);
-  border-color: #daa520;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  background: #002200;
+  border-color: #00ff00;
 }
 
 /* ======================
@@ -131,20 +143,20 @@ CHARACTER PANEL
 }
 
 #char-name {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
-  color: #daa520;
+  color: #00ff00;
   margin-bottom: 10px;
-  text-shadow: 0 0 8px rgba(218, 165, 32, 0.6), 0 0 16px rgba(218, 165, 32, 0.3);
+  text-shadow: none;
   text-transform: uppercase;
 }
 
 #char-lore {
   font-style: italic;
-  font-size: 16px;
+  font-size: 12px;
   opacity: 0.9;
   margin-bottom: 15px;
-  color: #daa520;
+  color: #00aa00;
 }
 
 /* ======================
@@ -159,8 +171,8 @@ EQUIPMENT
 .equipment-slot {
   width: 70px;
   height: 70px;
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00aa00;
   border-radius: 0;
   display: flex;
   flex-direction: column;
@@ -168,22 +180,20 @@ EQUIPMENT
   justify-content: center;
   padding: 6px;
   position: relative;
-  transition: 0.15s ease;
-  font-size: 12px;
+  transition: none;
+  font-size: 10px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: none;
 }
 
 .equipment-slot.empty-slot {
-  background: linear-gradient(145deg, #000000 0%, #0f0000 100%);
-  border-color: #330000;
+  background: #000000;
+  border-color: #004400;
 }
 
 .equipment-slot:hover {
-  transform: translateY(-1px);
-  border-color: #daa520;
-  background: linear-gradient(145deg, #1a0000 0%, #2a0000 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  border-color: #00ff00;
+  background: #002200;
 }
 
 .equipment-img {
@@ -207,12 +217,12 @@ INVENTORY GRID
   gap: 8px;
   margin-bottom: 15px;
   padding: 15px;
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00aa00;
   border-radius: 0;
   max-width: fit-content;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-  transition: 0.15s ease;
+  box-shadow: none;
+  transition: none;
 }
 
 #inventory-buttons {
@@ -228,8 +238,8 @@ ITEM SLOT
 .inventory-slot {
   width: 50px;
   height: 50px;
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00aa00;
   border-radius: 0;
   display: flex;
   flex-direction: column;
@@ -237,20 +247,18 @@ ITEM SLOT
   justify-content: center;
   padding: 4px;
   position: relative;
-  transition: 0.15s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  transition: none;
+  box-shadow: none;
 }
 
 .inventory-slot.empty-slot {
-  background: linear-gradient(145deg, #000000 0%, #0f0000 100%);
-  border-color: #330000;
+  background: #000000;
+  border-color: #004400;
 }
 
 .inventory-slot:hover {
-  transform: translateY(-1px);
-  border-color: #daa520;
-  background: linear-gradient(145deg, #1a0000 0%, #2a0000 100%);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.9);
+  border-color: #00ff00;
+  background: #002200;
 }
 
 /* ======================
@@ -263,17 +271,17 @@ ITEM IMAGE
   background: transparent;
   padding: 3px;
   border-radius: 0;
-  border: 1px solid #daa520;
-  filter: brightness(1.1) contrast(1.2) drop-shadow(0 0 4px rgba(218, 165, 32, 0.3));
+  border: 2px solid #00ff00;
+  filter: none;
 }
 
 /* ======================
 ITEM NAME
 ===================== */
 .item-name {
-  font-size: 11px;
+  font-size: 9px;
   text-align: center;
-  line-height: 12px;
+  line-height: 10px;
   white-space: normal;
   overflow-wrap: anywhere;
   width: 100%;
@@ -284,18 +292,15 @@ RARITY BORDERS
 ===================== */
 
 .rarity-common {
-  border-color: #654321;
-  box-shadow: 0 0 4px rgba(101, 67, 33, 0.2);
+  border-color: #888888;
 }
 
 .rarity-rare {
-  border-color: #8b0000;
-  box-shadow: 0 0 6px rgba(139, 0, 0, 0.4);
+  border-color: #0000ff;
 }
 
 .rarity-epic {
-  border-color: #dc143c;
-  box-shadow: 0 0 6px rgba(220, 20, 60, 0.5);
+  border-color: #ff00ff;
 }
 
 .rarity-legendary {
@@ -312,18 +317,18 @@ RARITY BORDERS
   position: absolute;
   top: 2px;
   right: 2px;
-  font-size: 10px;
+  font-size: 8px;
   padding: 2px 4px;
-  background: #8b0000;
-  color: #daa520;
-  border: 1px solid #daa520;
+  background: #000000;
+  color: #00ff00;
+  border: 2px solid #00ff00;
   border-radius: 0;
   cursor: pointer;
-  transition: 0.15s ease;
+  transition: none;
 }
 
 .sell-btn:hover {
-  background: #daa520;
+  background: #00ff00;
   color: #000000;
 }
 .tooltip {
@@ -333,17 +338,17 @@ RARITY BORDERS
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00aa00;
   border-radius: 0;
   padding: 10px;
-  font-size: 12px;
+  font-size: 10px;
   width: max-content;
   max-width: 220px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8), 0 0 6px rgba(139, 0, 0, 0.3);
-  transition: opacity 0.15s ease;
+  box-shadow: none;
+  transition: none;
   pointer-events: none;
-  color: #daa520;
+  color: #00ff00;
 }
 
 .inventory-slot:hover .tooltip,
@@ -354,35 +359,35 @@ RARITY BORDERS
 
 /* Tooltip rarity colors */
 .tooltip-common {
-  color: #cd853f;
+  color: #aaaaaa;
 }
 
 .tooltip-rare {
-  color: #b22222;
+  color: #0000ff;
 }
 
 .tooltip-epic {
-  color: #dc143c;
+  color: #ff00ff;
 }
 
 .tooltip-legendary {
-  color: #daa520;
+  color: #ffff00;
 }
 
 /* ======================
 BUTTONS
 ===================== */
 button {
-  font-family: "Arial Black", sans-serif;
+  font-family: 'Press Start 2P', cursive;
   font-weight: bold;
-  background: linear-gradient(145deg, #1a0000 0%, #2a0000 100%);
-  color: #daa520;
-  border: 2px solid #8b0000;
+  background: #001100;
+  color: #00ff00;
+  border: 4px solid #00aa00;
   padding: 10px 15px;
   border-radius: 0;
   cursor: pointer;
-  transition: 0.15s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  transition: none;
+  box-shadow: none;
   text-transform: uppercase;
 }
 
@@ -391,15 +396,15 @@ button {
   align-items: center;
   gap: 10px;
   padding: 10px;
-  background: linear-gradient(145deg, #0f0000 0%, #1a0000 100%);
-  border: 2px solid #8b0000;
+  background: #001100;
+  border: 4px solid #00aa00;
   border-radius: 0;
   margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: none;
 }
 
 .shop-item:hover {
-  border-color: #daa520;
+  border-color: #00ff00;
 }
 
 #attack-btn {
