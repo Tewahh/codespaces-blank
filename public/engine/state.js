@@ -21,7 +21,7 @@ export const state = {
     inventory: {
       items: [],
       page: 0,
-      pageSize: 40, // 10x4 grid
+      pageSize: 20, // 10x4 grid
     },
     equipment: { weapon: null, armor: null },
 

@@ -111,6 +111,14 @@ export function getInventoryPage() {
   return state.player.inventory.items.slice(start, end);
 }
 
+export function prevPage() {
+  // const pageSize = Math.max(40, state.player.inventory.pageSize || 40);
+  // const totalSlots = state.player.inventory.items.length;
+  // const maxPage = Math.floor((totalSlots - 1) / pageSize);
+
+  state.player.inventory.page = Math.max(state.player.inventory.page - 1, 0);
+}
+
 export function nextPage() {
   const pageSize = Math.max(40, state.player.inventory.pageSize || 40);
   const totalSlots = state.player.inventory.items.length;

@@ -1,3 +1,4 @@
+
 import { state } from "./engine/state.js";
 import { loadScene } from "./engine/sceneManager.js";
 import { generateLoot } from "./engine/generator/lootGenerator.js";
@@ -10,7 +11,6 @@ let currentUser = null;
 function enableAdminPanel() {
   const panel = document.getElementById("adminPanel");
   if (!panel) return;
-  panel.style.display = "block";
 
   // Buttons
   document.getElementById("spawnLootBtn").addEventListener("click", () => {
@@ -148,8 +148,10 @@ loginForm?.addEventListener("submit", async (e) => {
     }
 
     currentUser = username;
+    const isDev = String(username).trim().toLowerCase() === "dev";
+    document.body.classList.toggle("dev-mode", isDev);
 
-    if (currentUser === "dev") {
+    if (isDev) {
       enableAdminPanel();
     }
     safeAssign(state.player, result.player);
@@ -164,7 +166,7 @@ loginForm?.addEventListener("submit", async (e) => {
     }
 
     loginSection.style.display = "none";
-    gameSection.style.display = "block";
+    gameSection.style.display = "grid";
 
     loadScene(result.player?.world?.scene || "intro");
   } catch (err) {
@@ -231,31 +233,83 @@ SAVE / AUTOSAVE
 ====================== */
 async function savePlayer() {
   if (!currentUser) return;
+
   try {
+    const payload = {
+      username: currentUser,
+      player: JSON.parse(JSON.stringify(state.player)), // deep copy
+    };
+
     await fetch("/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: currentUser, player: state.player }),
+      body: JSON.stringify(payload),
     });
-    console.log("Player saved");
+
+    console.log("Player saved:", payload.player);
   } catch (err) {
     showError("Save failed: " + err);
   }
 }
 
-async function autosavePlayer() {
+let saveTimeout = null;
+
+function scheduleSave() {
   if (!currentUser) return;
-  try {
-    await fetch("/autosave", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: currentUser, player: state.player }),
-    });
-    console.log("Player autosaved");
-  } catch (err) {
-    showError("Autosave failed: " + err);
-  }
+
+  clearTimeout(saveTimeout);
+
+  saveTimeout = setTimeout(() => {
+    savePlayer();
+  }, 2000); // save 2 seconds after last change
 }
 
-setInterval(autosavePlayer, 30000);
-setInterval(savePlayer, 10000);
+scheduleSave();
+
+window.addEventListener("beforeunload", () => {
+  if (!currentUser) return;
+
+  navigator.sendBeacon(
+    "/save",
+    JSON.stringify({
+      username: currentUser,
+      player: state.player,
+    })
+  );
+});
+
+// let patchQueue = {};
+// let patchTimeout = null;
+
+// function queuePatch(data) {
+//   Object.assign(patchQueue, data);
+
+//   clearTimeout(patchTimeout);
+
+//   patchTimeout = setTimeout(sendPatch, 1000);
+// }
+
+// async function sendPatch() {
+//   if (!currentUser) return;
+
+//   const patch = { ...patchQueue };
+//   patchQueue = {};
+
+//   try {
+//     await fetch("/update-player", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({
+//         username: currentUser,
+//         patch
+//       })
+//     });
+
+//     console.log("Patch saved:", patch);
+
+//   } catch (err) {
+//     showError("Patch save failed: " + err);
+//   }
+// }

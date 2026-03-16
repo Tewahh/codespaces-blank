@@ -3,27 +3,88 @@ GLOBAL
 ===================== */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: 'Press Start 2P', cursive;
   background: #000000;
   color: #00ff00;
   padding: 20px;
-  display: grid;
-  grid-template-columns: 250px 1fr 350px;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  max-width: 1400px;
-  margin: auto;
+  width: 100%;
+  min-height: 100vh;
   text-transform: uppercase;
   image-rendering: pixelated;
+  overflow: hidden;
 }
 
 h1 {
   font-size: 36px;
   color: #00ff00;
   text-align: center;
-  grid-column: 1 / -1;
   margin-bottom: 20px;
   text-shadow: none;
+}
+
+#gameSection {
+  display: grid;
+  gap: 20px;
+  flex: 1;
+  overflow: hidden;
+}
+
+#mainPanel {
+  grid-area: main;
+  overflow: auto;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+#inventoryPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: inventory;
+  overflow: auto;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+#adminPanel {
+  grid-area: dev;
+  overflow: auto;
+  padding: 10px 0;
+  display: none;
+}
+
+body.dev-mode #adminPanel {
+  display: block;
+}
+
+/* ======================
+NORMAL MODE
+===================== */
+
+body:not(.dev-mode) #gameSection {
+  grid-template-columns: 1fr 320px;
+  grid-template-areas:
+    "main inventory";
+}
+
+/* ======================
+DEV MODE
+===================== */
+
+body.dev-mode #gameSection {
+  grid-template-columns: 260px 1fr 320px;
+  grid-template-areas:
+    "main inventory dev";
 }
 
 img {
@@ -68,6 +129,7 @@ STATS
 #char-stats li:hover {
   border-bottom-color: #00ff00;
 }
+
 /* ======================
 ABILITIES
 ===================== */
@@ -215,14 +277,13 @@ INVENTORY GRID
   grid-template-columns: repeat(10, 50px);
   grid-auto-rows: 50px;
   gap: 8px;
+  margin: 0 auto;
   margin-bottom: 15px;
   padding: 15px;
   background: #001100;
   border: 4px solid #00aa00;
   border-radius: 0;
-  max-width: fit-content;
-  box-shadow: none;
-  transition: none;
+  width: fit-content;
 }
 
 #inventory-buttons {
@@ -331,6 +392,7 @@ RARITY BORDERS
   background: #00ff00;
   color: #000000;
 }
+
 .tooltip {
   visibility: hidden;
   opacity: 0;
@@ -411,4 +473,3 @@ button {
   visibility: hidden;
   opacity: 0;
 }
-
