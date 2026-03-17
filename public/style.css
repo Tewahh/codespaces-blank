@@ -473,3 +473,9 @@ button {
   visibility: hidden;
   opacity: 0;
 }
+
+.sprite {
+  background-image: url('/assets/spritesheet.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
