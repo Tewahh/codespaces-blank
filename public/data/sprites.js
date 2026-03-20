@@ -1,10 +1,18 @@
 export const SPRITES = {
-  player: {
-    idle: { x: 0, y: 0, w: 64, h: 64 },
-    attack: { x: 64, y: 0, w: 64, h: 64 },
-  },
-
-  sword: {
-    icon: { x: 0, y: 128, w: 32, h: 32 },
-  }
+  sword_ruby: { x: 0, y: 0, w: 0, h: 0 },
+  sword_obsidian: { x: 0, y: 0, w: 0, h: 0 },
+  sword_diamond: { x: 0, y: 0, w: 0, h: 0 },
+  sword_something: { x: 0, y: 0, w: 0, h: 0 },
+  sword_emerald: { x: 0, y: 0, w: 0, h: 0 },
+  sword_tungsten: { x: 0, y: 0, w: 0, h: 0 },
+  // sword_red: { x: 5, y: 0, w: 121, h: 120 },
+  // sword_dark: { x: 127, y: 11, w: 126, h: 117 },
+  // sword_blue: { x: 294, y: 0, w: 124, h: 122 },
+  potion_red: { x: 0, y: 0, w: 64, h: 64 },
+  axe_red: { x: 0, y: 0, w: 64, h: 64 },
+  mace_red: { x: 0, y: 0, w: 64, h: 64 },
+  armor_plate: { x: 0, y: 0, w: 64, h: 64 },
+  bow: { x: 0, y: 0, w: 64, h: 64 },
+  crossbow: { x: 0, y: 0, w: 64, h: 64 },
+  gold: { x: 0, y: 0, w: 64, h: 64 },
 };

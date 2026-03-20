@@ -313,12 +313,3 @@ window.addEventListener("beforeunload", () => {
 //     showError("Patch save failed: " + err);
 //   }
 // }
-
-export function applySprite(el, sprite) {
-  el.classList.add("sprite");
-
-  el.style.width = sprite.w + "px";
-  el.style.height = sprite.h + "px";
-
-  el.style.backgroundPosition = `-${sprite.x}px -${sprite.y}px`;
-}

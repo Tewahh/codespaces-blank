@@ -39,26 +39,55 @@ export function renderInventory() {
 
     if (item) {
       slot.classList.add(`rarity-${item.rarity.toLowerCase()}`);
-      slot.innerHTML = `
-            <img src="${item.image}" class="inventory-img">
-            <button class="sell-btn">Sell</button>
-            <div class="tooltip tooltip-${item.rarity.toLowerCase()}">
-                <b>${item.name}</b><br>
-                Rarity: ${item.rarity}<br>
-                Type: ${item.type}<br>
-                ${item.attack ? `Attack: ${item.attack}<br>` : ""}
-                ${item.defense ? `Defense: ${item.defense}<br>` : ""}
-                Sell Price: ${getSellPrice(item)} coins<br>
-                ${item.description ? `<br>${item.description}` : ""}
-            </div>
-        `;
+
+      const img = document.createElement("div");
+      img.className = "inventory-img";
+
+      if (item.sprite) {
+        const { sheet, x, y, size } = item.sprite;
+
+        img.style.backgroundImage = `url(${sheet})`;
+        img.style.backgroundPosition = `-${x}px -${y}px`;
+        img.style.width = `${size}px`;
+        img.style.height = `${size}px`;
+        img.style.backgroundSize = "auto";
+      } else {
+        img.innerHTML = `<img src="${item.image}" class="inventory-img">`;
+      }
+      // const img = document.createElement("div");
+      // img.className = "inventory-img";
+      //       slot.innerHTML = `
+      //   <img src="${item.image}" class="inventory-img">
+      // `;
+
+
+      const sellBtn = document.createElement("button");
+      sellBtn.className = "sell-btn";
+      sellBtn.textContent = "Sell";
+
+      const tooltip = document.createElement("div");
+      tooltip.className = `tooltip tooltip-${item.rarity.toLowerCase()}`;
+      tooltip.innerHTML = `
+      
+    <b>${item.name}</b><br>
+    Rarity: ${item.rarity}<br>
+    Type: ${item.type}<br>
+    ${item.attack ? `Attack: ${item.attack}<br>` : ""}
+    ${item.defense ? `Defense: ${item.defense}<br>` : ""}
+    Sell Price: ${getSellPrice(item)} coins<br>
+    ${item.description ? `<br>${item.description}` : ""}
+  `;
+
+      slot.appendChild(img);
+      slot.appendChild(sellBtn);
+      slot.appendChild(tooltip);
 
       slot.onclick = () => {
         equipItem(item);
         updateUI(state);
       };
 
-      slot.querySelector('.sell-btn').onclick = (e) => {
+      sellBtn.onclick = (e) => {
         e.stopPropagation();
         sellItem(item);
       };
@@ -141,7 +170,7 @@ export function sellItem(item) {
   state.player.coins += coins;
 
   // Remove item from inventory
-  const index = state.player.inventory.items.findIndex(i => i === item);
+  const index = state.player.inventory.items.findIndex(i => i.id === item.id);
   if (index !== -1) {
     removeItem(index);
   }

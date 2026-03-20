@@ -325,7 +325,7 @@ ITEM SLOT
 /* ======================
 ITEM IMAGE
 ===================== */
-.inventory-img {
+/* .inventory-img {
   width: 32px;
   height: 32px;
   margin-bottom: 2px;
@@ -334,7 +334,16 @@ ITEM IMAGE
   border-radius: 0;
   border: 2px solid #00ff00;
   filter: none;
+} */
+
+.inventory-img {
+  width: 64px;
+  height: 64px;
+  background-repeat: no-repeat;
+  object-fit:contain;
+  image-rendering: pixelated;
 }
+
 
 /* ======================
 ITEM NAME
